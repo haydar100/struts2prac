@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="visitor" namespace="/visitor" extends="struts-default">
+		<action name="BookList" class="biebActions.visitor.BookList">
+			<result name="success">/jsp/visitor/BookList.jsp</result>
+		</action>
+		<action name="BookInfoForm" class="biebActions.visitor.BookList">
+			<result name="success">/jsp/visitor/BookInfoForm.jsp</result>
+		</action>
+		
+		<action name="ResultBookInfo" class="biebActions.visitor.BookInfoForm">
+			<result name="success">/jsp/visitor/ResultBookInfo.jsp</result>
+			<result name="input">/jsp/visitor/BookInfoForm.jsp</result>
+		</action>
+
+		<action name="CreateAccountForm" >
+			<result name="success">/jsp/visitor/CreateAccountForm.jsp</result>
+		</action>
+		<action name="CreateAccount" class="biebActions.visitor.CreateAccount">
+			<result name="success">/jsp/visitor/AccountCreated.jsp</result>
+			<result name="input">/jsp/visitor/CreateAccountForm.jsp</result>
+		</action>
+		<action name="LoginForm" >
+			<result name="success">/jsp/visitor/LoginForm.jsp</result>
+		</action>
+		<action name="Login" class="biebActions.visitor.Login">
+			<result name="success">/jsp/menu/MemberMenu.jsp</result>
+			<result name="managermenu">/jsp/menu/ManagerMenu.jsp</result>
+			<result name="coworkermenu">/html/not_yet_implemented.html</result>
+			<result name="input">/jsp/visitor/LoginForm.jsp</result>
+		</action>
+	</package>
+
+	<package name="manager" namespace="/manager" extends="struts-default">
+		<interceptors>
+			<interceptor name="managerInterceptor" class="biebInterceptors.ManagerInterceptor"/>
+			<interceptor-stack name="ManagerStack">
+					<interceptor-ref name="managerInterceptor" />
+					<interceptor-ref name="defaultStack" />
+				</interceptor-stack>
+			</interceptors>
+	
+		<default-interceptor-ref name="ManagerStack" />	
+		
+		<action name="ManagerMenu" class="biebActions.manager.ManagerMenu">
+			<result>/jsp/menu/ManagerMenu.jsp</result>
+		</action>
+		
+		<action name="BookList" class="biebActions.manager.BookList">
+			<result name="success">/jsp/manager/BookList.jsp</result>
+		</action>
+		
+		<action name="BookInfoForm" class="biebActions.manager.BookList">
+			<result name="success">/jsp/manager/BookInfoForm.jsp</result>
+		</action>
+		
+		<action name="ResultBookInfo" class="biebActions.manager.BookInfoForm">
+			<result name="success">/jsp/manager/ResultBookInfo.jsp</result>
+			<result name="input">/jsp/manager/BookInfoForm.jsp</result>
+		</action>
+		
+		<action name="UserList" class="biebActions.manager.AllUsers">
+			<result name="success">/jsp/manager/AllUsers.jsp</result>
+		</action>
+		
+		<action name="DeleteUserForm" class="biebActions.manager.AllUsers">
+			<result name="success">/jsp/manager/DeleteUser.jsp</result>
+			<result name="input">/jsp/manager/DeleteUser.jsp</result>
+		</action>
+		
+		<action name="DeleteUser" class="biebActions.manager.DeleteUser">
+			<result name="success">/jsp/manager/DeleteUser.jsp</result>
+			<result name="input">/jsp/manager/DeleteUser.jsp</result>
+		</action>
+		
+		<action name="AddBookForm" class="biebActions.member.AllBooks">
+			<result name="success">/jsp/manager/AddBook.jsp</result>
+			<result name="input">/jsp/manager/AddBook.jsp</result>
+		</action>
+		<action name="AddBook" class="biebActions.manager.AddBook">
+			<result name="success">/jsp/manager/AddBook.jsp</result>
+			<result name="input">/jsp/manager/AddBook.jsp</result>
+		</action>
+		
+		<action name="DeleteBookForm" class="biebActions.member.AllBooks">
+			<result name="success">/jsp/manager/DeleteBook.jsp</result>
+		</action>
+		
+		<action name="DeleteBook" class="biebActions.manager.DeleteBook">
+			<result name="success">/jsp/manager/DeleteBook.jsp</result>
+			<result name="input">/jsp/manager/DeleteBook.jsp</result>
+		</action>
+		
+		<action name="AddCoworkerForm" class="biebActions.manager.AllUsers">
+			<result name= "success">/jsp/manager/AddCoWorkerForm.jsp</result>
+		</action>
+		
+		<action name="AddCoWorker" class="biebActions.manager.AddCoWorker">
+			<result name= "success">/jsp/manager/AddCoWorkerForm.jsp</result>
+			<result name= "input">/jsp/manager/AddCoWorkerForm.jsp</result>
+		</action>
+		
+	</package>
+	
+	<package name="member" namespace="/member" extends="struts-default">
+		<interceptors>
+			<interceptor name="authenticationInterceptor"
+				class="biebInterceptors.AuthenticationInterceptor" />
+
+			<interceptor-stack name="MemberStack">
+				<interceptor-ref name="authenticationInterceptor" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+	
+		<default-interceptor-ref name="MemberStack" />	
+		
+		<global-results>
+			<result name="login" type="redirect">
+				/visitor/LoginForm.action
+			</result>
+		</global-results>
+		
+		<action name="MemberMenu" class="biebActions.member.MemberMenu">
+			<result>/jsp/menu/MemberMenu.jsp</result>
+		</action>
+		<action name="BookList" class="biebActions.visitor.BookList">
+			<result name="success">/jsp/member/BookList.jsp</result>
+		</action>
+		<action name="BookInfoForm">
+		<result name="success">/jsp/member/BookInfoForm.jsp</result>
+		</action>
+		<action name="ResultBookInfo" class="biebActions.member.BookInfoForm">
+			<result name="success">/jsp/member/ResultBookInfo.jsp</result>
+			<result name="input">/jsp/member/BookInfoForm.jsp</result>
+		</action>
+		<action name="BookInfoList">
+			<result name="success">/html/member_not_yet_implemented.html</result>
+		</action>
+		<action name="BookReservationForm" class="biebActions.member.AllBooks">
+			<result name="success">/jsp/member/ReserveerBoek.jsp</result>
+		</action>
+		
+		<action name="BookReservation" class="biebActions.member.ReserveBook">
+			<result name="success">/jsp/member/ReserveerBoek.jsp</result>
+			<result name="input">/jsp/member/ReserveerBoek.jsp</result>
+		</action>
+		
+		<action name="CancelReservation" class="biebActions.member.CancelReservation">
+		 <result name="success">/jsp/member/AnnuleerReservering.jsp</result>
+		 <result name="input">/jsp/member/AnnuleerReservering.jsp</result>
+		</action>
+		
+		<action name="CancelReservationForm" class="biebActions.member.AllBooks">
+		 <result name="success">/jsp/member/AnnuleerReservering.jsp</result>
+		</action>
+		
+		
+		
+		<action name="MyBookList" class="biebActions.member.AllBooks">
+			<result name="success">/jsp/member/AlleBoeken.jsp</result>
+		</action>
+		
+		<action name="ChangePasswordForm">
+			<result name="success">/jsp/member/ChangePasswordForm.jsp</result>
+		</action>
+		<action name="changePassword" class="biebActions.member.ChangePassword">
+			<result name="success">/jsp/menu/MemberMenu.jsp</result>
+			<result name="input">/jsp/member/ChangePasswordForm.jsp</result>
+		</action>
+		<action name="Logout" class="biebActions.member.Logout">
+			<result name="success">/jsp/member/LoggedOut.jsp</result>
+		</action>	
+	</package>
+</struts>
